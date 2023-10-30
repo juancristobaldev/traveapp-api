@@ -8,9 +8,6 @@ const cors = require("cors");
 
 const bodyParser = require("body-parser");
 
-const session = require("express-session");
-const { getApp } = require("./firebase/initializeFirebase");
-
 require("dotenv").config({ path: "./.env" });
 
 app.use(express.json());
