@@ -46,6 +46,8 @@ app.get("/error", async (req, res) => {
   ]);
 });
 
+console.log("");
+
 app.get("/login/federated/google", passport.authenticate("google"));
 app.get(
   "/oauth2/redirect/google",
