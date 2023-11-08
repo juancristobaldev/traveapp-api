@@ -27,8 +27,8 @@ app.get("/success", async (req, res) => {
   if (user) {
     const userQueryParams = new URLSearchParams({ user: JSON.stringify(user) });
 
-    const urlDevelopment = "localhost:3000",
-      urlProduction = "traveapp-api.vercel.app";
+    const urlDevelopment = "http://localhost:3000",
+      urlProduction = "https://traveapp-api.vercel.app";
 
     const domain =
       process.env.CONTEXT === "development" ? urlDevelopment : urlProduction;
