@@ -27,13 +27,19 @@ app.get("/success", async (req, res) => {
   if (user) {
     const userQueryParams = new URLSearchParams({ user: JSON.stringify(user) });
 
-    const urlDevelopment = "http://localhost:3000",
-      urlProduction = "https://traveapp-api.vercel.app";
+    urlProduction = "https://traveapp-api.vercel.app";
 
     const domain =
       process.env.CONTEXT === "development" ? urlDevelopment : urlProduction;
-    res.redirect(`exp+traveapp://${domain}/${userQueryParams.toString()}`);
+    res.redirect(
+      `exp+traveapp://${urlProduction}/${userQueryParams.toString()}`
+    );
   }
+});
+
+app.get("/error", async (req, res) => {
+  const variablesEntorno = await process.env;
+  res.send(variablesEntorno);
 });
 
 app.get("/login/federated/google", passport.authenticate("google"));
@@ -50,7 +56,7 @@ app.get(
   "/oauth2/redirect/facebook",
   passport.authenticate("facebook", {
     successRedirect: "/success",
-    failureRedirect: "/login",
+    failureRedirect: "/error",
   })
 );
 
