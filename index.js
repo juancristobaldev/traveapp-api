@@ -27,15 +27,12 @@ app.get("/success", async (req, res) => {
   if (user) {
     const userQueryParams = new URLSearchParams({ user: JSON.stringify(user) });
 
-    if (process.env.CONTEXT === "development") {
-      res.redirect(
-        `exp+traveapp://localhost:3000/${userQueryParams.toString()}`
-      );
-    } else if (process.env.CONTEXT === "production") {
-      res.redirect(
-        `exp+traveapp://localhost:3000/${userQueryParams.toString()}`
-      );
-    }
+    const urlDevelopment = "localhost:3000",
+      urlProduction = "traveapp-api.vercel.app";
+
+    const domain =
+      process.env.CONTEXT === "development" ? urlDevelopment : urlProduction;
+    res.redirect(`exp+traveapp://${domain}/${userQueryParams.toString()}`);
   }
 });
 
