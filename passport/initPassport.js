@@ -9,7 +9,7 @@ const initPassport = (app) => {
   GoogleStrategy.OAuth2Strategy;
   const FacebookStrategy = require("passport-facebook");
 
-  require("dotenv").config({ path: "./.env" });
+  if (!process.env.CONTEXT) require("dotenv").config({ path: "./.env" });
 
   app.use(
     session({

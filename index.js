@@ -39,7 +39,11 @@ app.get("/success", async (req, res) => {
 
 app.get("/error", async (req, res) => {
   const variablesEntorno = await process.env;
-  res.send(variablesEntorno);
+  res.send([
+    process.env["GOOGLE_CLIENT_ID"],
+    process.env["GOOGLE_SECRET_CLIENT_ID"],
+    process.env["GOOGLE_CALLBACK_URL"],
+  ]);
 });
 
 app.get("/login/federated/google", passport.authenticate("google"));
