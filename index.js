@@ -34,7 +34,7 @@ app.get("/success", async (req, res) => {
       process.env.CONTEXT === "development" ? urlDevelopment : urlProduction;
 
     res.redirect(
-      `exp+traveapp://${domain}/success/${userQueryParams.toString()}`
+      `cl.empdigital.traveapp://${domain}/success/${userQueryParams.toString()}`
     );
   }
 });
