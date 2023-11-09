@@ -48,15 +48,13 @@ app.get("/error", async (req, res) => {
   ]);
 });
 
-console.log("");
-
 app.get("/login/federated/google", passport.authenticate("google"));
 app.get(
   "/oauth2/redirect/google",
-  passport.authenticate("google"),
-  (req, res) => {
-    res.redirect(`/success`);
-  }
+  passport.authenticate("google", {
+    successRedirect: "/success",
+    failureRedirect: "/error",
+  })
 );
 
 app.get("/login/federated/facebook", passport.authenticate("facebook"));

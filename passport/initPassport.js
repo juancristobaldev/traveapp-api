@@ -29,7 +29,7 @@ const initPassport = (app) => {
         clientID: process.env["GOOGLE_CLIENT_ID"],
         clientSecret: process.env["GOOGLE_SECRET_CLIENT_ID"],
         callbackURL: process.env["GOOGLE_CALLBACK_URL"],
-        scope: ["profile"],
+        scope: ["profile", "emails"],
       },
       async (accessToken, refreshToken, profile, cb) => {
         console.log(profile);
@@ -40,11 +40,13 @@ const initPassport = (app) => {
           process.env["GOOGLE_CALLBACK_URL"]
         );
 
+        const profileUser = await profile;
+
         const data = {
-          id: profile.id,
-          Nombre: profile.name.givenName,
-          Apellido: profile.name.familyName,
-          Email: profile.emails[0].value,
+          id: profileUser.id,
+          Nombre: profileUser.name.givenName,
+          Apellido: profileUser.name.familyName,
+          Email: profileUser.emails[0].value,
           accessToken,
         };
 
@@ -56,7 +58,8 @@ const initPassport = (app) => {
 
         if (variables.birthday) data.FechaNacimiento = variables.birthday;
         if (variables.gender) data.Genero = variables.birthday;
-        if (profile.photos[0].value) data.Perfil = profile.photos[0].value;
+        if (profileUser.photos[0].value)
+          data.Perfil = profileUser.photos[0].value;
 
         console.log(data);
 
