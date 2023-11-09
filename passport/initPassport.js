@@ -26,18 +26,19 @@ const initPassport = (app) => {
   passport.use(
     new GoogleStrategy.OAuth2Strategy(
       {
-        clientID: process.env["GOOGLE_CLIENT_ID"],
-        clientSecret: process.env["GOOGLE_SECRET_CLIENT_ID"],
-        callbackURL: process.env["GOOGLE_CALLBACK_URL"],
+        clientID:
+          "594477246406-an4gbfsndslvng9gdd10u4vkjjmmec0i.apps.googleusercontent.com",
+        clientSecret: "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",
+        callbackURL: "https://traveapp-api.vercel.app/oauth2/redirect/google",
         scope: ["profile", "email"],
       },
       async (accessToken, refreshToken, profile, cb) => {
         console.log(profile);
 
         const oauth2Client = new google.auth.OAuth2(
-          process.env["GOOGLE_CLIENT_ID"],
-          process.env["GOOGLE_SECRET_CLIENT_ID"],
-          process.env["GOOGLE_CALLBACK_URL"]
+          "594477246406-an4gbfsndslvng9gdd10u4vkjjmmec0i.apps.googleusercontent.com",
+          "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",
+          "https://traveapp-api.vercel.app/oauth2/redirect/google"
         );
 
         const data = {
