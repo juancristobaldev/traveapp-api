@@ -56,7 +56,7 @@ const initPassport = (app) => {
         console.log(variables);
 
         if (variables.birthday) data.FechaNacimiento = variables.birthday;
-        if (variables.gender) data.Genero = variables.birthday;
+        if (variables.gender) data.Genero = variables.gender;
         if (profileUser.photos[0].value)
           data.Perfil = profileUser.photos[0].value;
 

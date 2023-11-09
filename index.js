@@ -46,7 +46,6 @@ app.get("/success/:user", (req, res) => {
 });
 
 app.get("/error", async (req, res) => {
-  const variablesEntorno = await process.env;
   res.send([
     process.env["GOOGLE_CLIENT_ID"],
     process.env["GOOGLE_SECRET_CLIENT_ID"],
