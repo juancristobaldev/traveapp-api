@@ -55,10 +55,20 @@ app.get("/error", async (req, res) => {
 app.get("/login/federated/google", passport.authenticate("google"));
 app.get(
   "/oauth2/redirect/google",
-  passport.authenticate("google", {
-    successRedirect: "/success",
-    failureRedirect: "/error",
-  })
+  (req, res, next) => {
+    passport.authenticate("google", { scope: ["profile", "email"] })(
+      req,
+      res,
+      next
+    );
+  },
+  (err, req, res, next) => {
+    console.error(err);
+    res.redirect("/error");
+  },
+  (req, res) => {
+    res.redirect("/success");
+  }
 );
 
 app.get("/login/federated/facebook", passport.authenticate("facebook"));
@@ -75,5 +85,10 @@ app.get(
 app.use(require("./routes/index"));
 // server
 app.listen(port, () => {
-  console.log(`🚀 Server running at: ${port}`);
+  const url =
+    process.env.CONTEXT !== "development"
+      ? "https://traveapp-api.vercel.app"
+      : "http://localhost:3000";
+
+  console.log(`🚀 Server running at ${url}`);
 });
