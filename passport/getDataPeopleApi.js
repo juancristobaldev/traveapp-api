@@ -10,7 +10,8 @@ const getDataPeopleApi = async (accessToken, oauth2Client) => {
     personFields: "genders,birthdays,addresses,phoneNumbers",
   });
 
-  const { birthdays, genders, addresses, phoneNumbers } = response.data;
+  const { birthdays, genders, addresses, phoneNumbers, emailAddresses } =
+    response.data;
 
   const variables = {
     birthday: birthdays
@@ -27,6 +28,7 @@ const getDataPeopleApi = async (accessToken, oauth2Client) => {
     gender: genders ? genders[0].value : "undefined",
     addresses: addresses,
     phoneNumbers,
+    emailAddresses,
   };
 
   return variables;
