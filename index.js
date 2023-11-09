@@ -33,9 +33,13 @@ app.get("/success", async (req, res) => {
     const domain =
       process.env.CONTEXT === "development" ? urlDevelopment : urlProduction;
 
-    res.redirect(
-      `exp+traveapp://${urlProduction}/${userQueryParams.toString()}`
-    );
+    res.redirect(`/success/${userQueryParams}`);
+  }
+});
+
+app.get("/success/:user", (req, res) => {
+  if (req.user) {
+    res.send(req.user);
   }
 });
 
