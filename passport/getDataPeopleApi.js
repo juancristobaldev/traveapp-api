@@ -7,11 +7,13 @@ const getDataPeopleApi = async (accessToken, oauth2Client) => {
 
   const response = await people.people.get({
     resourceName: "people/me",
-    personFields: "genders,birthdays,addresses,phoneNumbers",
+    personFields: "genders,birthdays,addresses,phoneNumbers,emailAddresses",
   });
 
   const { birthdays, genders, addresses, phoneNumbers, emailAddresses } =
-    response.data;
+    await response.data;
+
+  console.log(response.data);
 
   const variables = {
     birthday: birthdays

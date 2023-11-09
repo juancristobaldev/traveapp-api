@@ -29,7 +29,7 @@ const initPassport = (app) => {
         clientID: process.env["GOOGLE_CLIENT_ID"],
         clientSecret: process.env["GOOGLE_SECRET_CLIENT_ID"],
         callbackURL: process.env["GOOGLE_CALLBACK_URL"],
-        scope: ["profile"],
+        scope: ["profile", "email"],
       },
       async (accessToken, refreshToken, profile, cb) => {
         console.log(profile);
@@ -46,7 +46,6 @@ const initPassport = (app) => {
           id: profileUser.id,
           Nombre: profileUser.name.givenName,
           Apellido: profileUser.name.familyName,
-          Email: profileUser.emails[0].value,
           accessToken,
         };
 
@@ -61,7 +60,11 @@ const initPassport = (app) => {
         if (profileUser.photos[0].value)
           data.Perfil = profileUser.photos[0].value;
 
-        console.log(data);
+        if (profileUser.emails && profileUser.emails.length) {
+          data.Email = profileUser.emails[0].value;
+        } else if (variables.emailAddresses) {
+          data.Email = variables.emailAddresses[0].value;
+        }
 
         return cb(null, data);
       }
